@@ -8,7 +8,9 @@ const Header = () => {
   return (
     <Navbar className="bg-funta navbar-dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#">Funta-Kitchen</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          Funta-Kitchen
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -19,7 +21,12 @@ const Header = () => {
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
-            <Nav.Link href="#action2">Link</Nav.Link>
+            <Nav.Link as={Link} to="/services">
+              Services
+            </Nav.Link>
+            <Nav.Link as={Link} to="/login">
+              Login
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
