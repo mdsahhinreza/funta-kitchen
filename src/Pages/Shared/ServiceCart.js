@@ -7,7 +7,10 @@ const ServiceCart = ({ item }) => {
   const { _id, name, details, price, img } = item;
   return (
     <div className="col-4 mb-3">
-      <Card className="border border-info border-opacity-50">
+      <Card
+        className="border border-info border-opacity-50"
+        style={{ minHeight: "462px" }}
+      >
         <PhotoProvider>
           <PhotoView src={img}>
             <Card.Img variant="top" height={231} src={img} />
