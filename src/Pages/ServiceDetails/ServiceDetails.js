@@ -44,8 +44,10 @@ const ServiceDetails = () => {
           alert("Review Added Successfull");
           form.reset();
           setGivenStar(0);
-          // const newReviewData = [reviewData, ...reviews];
-          // setReviews(newReviewData);
+          console.log(data);
+          reviewData._id = data.insertedId;
+          const newReviewData = [reviewData, ...reviews];
+          setReviews(newReviewData);
         }
       });
   };

@@ -3,6 +3,8 @@ import { Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 
 const AddService = () => {
+  const timestamp = Date.now();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -12,8 +14,30 @@ const AddService = () => {
     const description = form.details.value;
     const price = form.price.value;
 
-    console.log(title, fullImage, thumbnail, description, price);
+    const newService = {
+      name: title,
+      img: fullImage,
+      thumbnail: thumbnail,
+      details: description,
+      price: price,
+      timestamp: timestamp,
+    };
+
+    fetch("http://localhost:5000/services", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newService),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          console.log("Service Added Success");
+        }
+      });
   };
+
   return (
     <div className="mt-5 pt-5" style={{ minHeight: "80vh" }}>
       <div className="row container mx-auto">
