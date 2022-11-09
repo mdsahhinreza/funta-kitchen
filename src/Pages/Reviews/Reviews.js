@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import { FaTrash } from "react-icons/fa";
+import { FaStar, FaTrash } from "react-icons/fa";
+import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
 
 const Reviews = () => {
+  const { user } = useContext(AuthContext);
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, [user?.email]);
+
+  const handleDelete = (id) => {
+    console.log(id);
+  };
   return (
     <div className="mt-5 pt-5" style={{ minHeight: "80vh" }}>
       <div className="row container m-auto">
@@ -15,13 +27,13 @@ const Reviews = () => {
                 Sl
               </th>
               <th width="15%" className="text-center">
-                Thumbnail
+                Product Name
               </th>
-              <th width="30%" className="text-center">
-                Service Name
-              </th>
-              <th width="50%" className="text-center">
+              <th width="60%" className="text-center">
                 Review
+              </th>
+              <th width="10%" className="text-center">
+                Start
               </th>
               <th width="10%" className="text-center">
                 Action
@@ -29,17 +41,25 @@ const Reviews = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="text-center">01</td>
-              <td className="text-center">Thumbnail</td>
-              <td className="text-center">Service Name</td>
-              <td className="text-center">Review</td>
-              <td className="text-center">
-                <Button className="btn btn-danger">
-                  <FaTrash></FaTrash>
-                </Button>
-              </td>
-            </tr>
+            {reviews.map((review, sl) => (
+              <tr key={review._id}>
+                <td className="text-center">{sl + 1}</td>
+                <td className="text-start">{review.productTitle}</td>
+                <td className="text-start">{review.reviewText}</td>
+                <td className="text-center">
+                  {review.star}
+                  <FaStar className="mb-1 text-warning"></FaStar>
+                </td>
+                <td className="text-center">
+                  <Button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => handleDelete(review._id)}
+                  >
+                    <FaTrash></FaTrash>
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>

@@ -1,14 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useLoaderData } from "react-router-dom";
 import { BiDish, BiPaperPlane } from "react-icons/bi";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
 import { FaStar } from "react-icons/fa";
+import UserReview from "./UserReview";
 
 const ServiceDetails = () => {
   const { user } = useContext(AuthContext);
   const [givenStar, setGivenStar] = useState(0);
+  const [reviews, setReviews] = useState([]);
   const service = useLoaderData();
   const { _id, name, price, details, thumbnail, img } = service;
 
@@ -22,6 +24,8 @@ const ServiceDetails = () => {
       reviewText: text,
       star: givenStar,
       productId: _id,
+      productTitle: name,
+      customarEmail: user.email,
       customar: user.displayName,
       customarPhoto: user.photoURL,
       reviewTime: timestamp,
@@ -40,11 +44,17 @@ const ServiceDetails = () => {
           alert("Review Added Successfull");
           form.reset();
           setGivenStar(0);
+          // const newReviewData = [reviewData, ...reviews];
+          // setReviews(newReviewData);
         }
       });
-
-    // console.log(reviewData);
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews?productId=${_id}`)
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, [_id]);
 
   // console.log(timestamp);
   // console.log(
@@ -154,6 +164,11 @@ const ServiceDetails = () => {
             </h2>
           )}
         </div>
+      </div>
+      <div className="row mt-5">
+        {reviews.map((review) => (
+          <UserReview key={review._id} review={review}></UserReview>
+        ))}
       </div>
     </div>
   );
