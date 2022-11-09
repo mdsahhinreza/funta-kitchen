@@ -3,12 +3,17 @@ import { Button, Form } from "react-bootstrap";
 import loginImg from "../../assets/Login/login.gif";
 import successImg from "../../assets/Shared/success.gif";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
 
 const Login = () => {
   const [sinUpSuccess, setSignUpSuccess] = useState(false);
   const { login, googleLogIn } = useContext(AuthContext);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from.pathname || "/";
 
   const loginHandler = (event) => {
     event.preventDefault();
@@ -19,6 +24,7 @@ const Login = () => {
       .then(() => {
         console.log("SignIn Success");
         setSignUpSuccess(true);
+        navigate(from, { replace: true });
       })
       .catch((err) => console.error(err));
   };
@@ -27,6 +33,7 @@ const Login = () => {
     googleLogIn().then(() => {
       console.log("Login Success");
       setSignUpSuccess(true);
+      navigate(from, { replace: true });
     });
   };
 

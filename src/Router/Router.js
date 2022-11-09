@@ -7,6 +7,7 @@ import Reviews from "../Pages/Reviews/Reviews";
 import AddService from "../Pages/Service/AddService";
 import Services from "../Pages/Service/Services";
 import ServiceDetails from "../Pages/ServiceDetails/ServiceDetails";
+import PrivetRoute from "./PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -30,11 +31,19 @@ const router = createBrowserRouter([
       },
       {
         path: "add-service",
-        element: <AddService></AddService>,
+        element: (
+          <PrivetRoute>
+            <AddService></AddService>
+          </PrivetRoute>
+        ),
       },
       {
         path: "my-reviews",
-        element: <Reviews></Reviews>,
+        element: (
+          <PrivetRoute>
+            <Reviews></Reviews>
+          </PrivetRoute>
+        ),
       },
       {
         path: "/login",

@@ -3,13 +3,24 @@ import { Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 
 const AddService = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const title = form.name.value;
+    const fullImage = form.img.value;
+    const thumbnail = form.thumbnail.value;
+    const description = form.details.value;
+    const price = form.price.value;
+
+    console.log(title, fullImage, thumbnail, description, price);
+  };
   return (
     <div className="mt-5 pt-5" style={{ minHeight: "80vh" }}>
       <div className="row container mx-auto">
         <h2 className="text-center">Add New Service</h2>
         <hr className="w-25 m-auto border-info"></hr>
         <div className="">
-          <Form className="w-50 m-auto pt-4">
+          <Form className="w-50 m-auto pt-4" onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Service Title</Form.Label>
               <Form.Control

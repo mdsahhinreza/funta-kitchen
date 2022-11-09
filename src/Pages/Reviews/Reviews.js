@@ -13,7 +13,23 @@ const Reviews = () => {
   }, [user?.email]);
 
   const handleDelete = (id) => {
-    console.log(id);
+    const proceed = window.confirm(
+      "Are you sure, you want to Delete this Review?"
+    );
+    if (proceed) {
+      console.log("deleted");
+      fetch(`http://localhost:5000/reviews/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            const leftReviews = reviews.filter((review) => review._id !== id);
+            setReviews(leftReviews);
+          }
+          console.log(data);
+        });
+    }
   };
   return (
     <div className="mt-5 pt-5" style={{ minHeight: "80vh" }}>
