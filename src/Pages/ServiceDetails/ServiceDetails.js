@@ -1,13 +1,63 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useLoaderData } from "react-router-dom";
 import { BiDish, BiPaperPlane } from "react-icons/bi";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
+import { FaStar } from "react-icons/fa";
 
 const ServiceDetails = () => {
-  const user = { name: "reza" };
+  const { user } = useContext(AuthContext);
+  const [givenStar, setGivenStar] = useState(0);
   const service = useLoaderData();
-  const { name, price, details, thumbnail, img } = service;
+  const { _id, name, price, details, thumbnail, img } = service;
+
+  const timestamp = Date.now(); // This would be the timestamp you want to format
+
+  const handlePostReview = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const text = form.review.value;
+    const reviewData = {
+      reviewText: text,
+      star: givenStar,
+      productId: _id,
+      customar: user.displayName,
+      customarPhoto: user.photoURL,
+      reviewTime: timestamp,
+    };
+
+    fetch("http://localhost:5000/addreview", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(reviewData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          alert("Review Added Successfull");
+          form.reset();
+          setGivenStar(0);
+        }
+      });
+
+    // console.log(reviewData);
+  };
+
+  // console.log(timestamp);
+  // console.log(
+  //   new Intl.DateTimeFormat("en-US", {
+  //     year: "numeric",
+  //     month: "2-digit",
+  //     day: "2-digit",
+  //     hour: "2-digit",
+  //     minute: "2-digit",
+  //     second: "2-digit",
+  //   }).format(timestamp)
+  // );
+
   return (
     <div className="mb-5 container">
       <div className="mt-5 pt-5  row mx-auto">
@@ -38,36 +88,70 @@ const ServiceDetails = () => {
       <div className="row">
         <div className="col-md-8">
           {user ? (
-            <>
+            <Form onSubmit={handlePostReview}>
               <h2>Share your review about this service</h2>
               <hr className="border-primary" />
               <Form.Group className="mb-3">
                 <Form.Label>Your Review</Form.Label>
                 <Form.Control
+                  name="review"
                   as="textarea"
                   placeholder="Write your review about this service"
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Your Rating</Form.Label>
-                <Form.Select>
-                  <option>Select Your Ratings</option>
-                  <option>0/10</option>
-                  <option>3/10</option>
-                  <option>5/10</option>
-                  <option>7/10</option>
-                  <option>9/10</option>
-                  <option>10/10</option>
-                </Form.Select>
+                <Form.Label>Your Rating {givenStar}</Form.Label>
+                <div>
+                  <button
+                    onMouseEnter={() => setGivenStar(1)}
+                    className={`btn btn-lg p-0 m-0 ${
+                      givenStar >= 1 ? "text-warning" : ""
+                    }`}
+                  >
+                    <FaStar></FaStar>
+                  </button>
+                  <button
+                    onMouseEnter={() => setGivenStar(2)}
+                    className={`btn btn-lg p-0 m-0 ${
+                      givenStar >= 2 ? "text-warning" : ""
+                    }`}
+                  >
+                    <FaStar></FaStar>
+                  </button>
+                  <button
+                    onMouseEnter={() => setGivenStar(3)}
+                    className={`btn btn-lg p-0 m-0 ${
+                      givenStar >= 3 ? "text-warning" : ""
+                    }`}
+                  >
+                    <FaStar></FaStar>
+                  </button>
+                  <button
+                    onMouseEnter={() => setGivenStar(4)}
+                    className={`btn btn-lg p-0 m-0 ${
+                      givenStar >= 4 ? "text-warning" : ""
+                    }`}
+                  >
+                    <FaStar></FaStar>
+                  </button>
+                  <button
+                    onMouseEnter={() => setGivenStar(5)}
+                    className={`btn btn-lg p-0 m-0 ${
+                      givenStar >= 5 ? "text-warning" : ""
+                    }`}
+                  >
+                    <FaStar></FaStar>
+                  </button>
+                </div>
               </Form.Group>
-              <Button variant="info">
-                <BiPaperPlane></BiPaperPlane> Post
+              <Button variant="info" type="submit">
+                <BiPaperPlane></BiPaperPlane> Post Review
               </Button>
-            </>
+            </Form>
           ) : (
-            <p className="text-center">
+            <h2 className="text-left">
               Please <Link to="/login">Login</Link> to add a review
-            </p>
+            </h2>
           )}
         </div>
       </div>

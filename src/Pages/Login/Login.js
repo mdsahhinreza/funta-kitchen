@@ -1,17 +1,45 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import login from "../../assets/Login/login.gif";
+import loginImg from "../../assets/Login/login.gif";
+import successImg from "../../assets/Shared/success.gif";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
 
 const Login = () => {
-  const loginHandler = (event) => {};
+  const [sinUpSuccess, setSignUpSuccess] = useState(false);
+  const { login, googleLogIn } = useContext(AuthContext);
+
+  const loginHandler = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    login(email, password)
+      .then(() => {
+        console.log("SignIn Success");
+        setSignUpSuccess(true);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleGoogleSign = () => {
+    googleLogIn().then(() => {
+      console.log("Login Success");
+      setSignUpSuccess(true);
+    });
+  };
+
   return (
     <div className="container p-5" style={{ minHeight: "88vh" }}>
       <h2 className="text-center ff-poppins">Login Form</h2> <hr />
       <div className="row w-75 mx-auto">
         <div className="col-6 border-end">
-          <img className="img-fluid" src={login} alt="" />
+          {sinUpSuccess ? (
+            <img className="img-fluid" src={successImg} alt="" />
+          ) : (
+            <img className="img-fluid" src={loginImg} alt="" />
+          )}
         </div>
         <div className="col-6 p-5 ff-poppins my-auto">
           <Form onSubmit={loginHandler}>
@@ -47,11 +75,12 @@ const Login = () => {
           </Form>
           <hr className="w-75 m-auto border-info mt-3"></hr>
           <div className="text-center mt-2">
-            <Button className="w-50" variant="light">
+            <Button className="w-50" onClick={handleGoogleSign} variant="light">
               <FcGoogle></FcGoogle>
             </Button>
             <p className="mt-3">
-              New at Funta-Kitchen? Please <Link>Register</Link>
+              New at Funta-Kitchen? Please{" "}
+              <Link to={"/register"}>Register</Link>
             </p>
           </div>
         </div>
