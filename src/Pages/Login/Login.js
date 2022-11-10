@@ -26,11 +26,28 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     login(email, password)
-      .then(() => {
+      .then((result) => {
+        const user = result.user;
+        const currentUser = {
+          email: user.email,
+        };
+
+        fetch("https://funta-kitchen-server.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("virusToken", data.token);
+            navigate(from, { replace: true });
+          });
+
         toast("Login Successfull");
         setLoader(false);
         setSignUpSuccess(true);
-        navigate(from, { replace: true });
       })
       .catch((err) => {
         setError(err.message);

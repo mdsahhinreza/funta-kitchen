@@ -47,6 +47,7 @@ const AuthProvider = ({ children }) => {
   //User signOut
 
   const logOut = () => {
+    localStorage.removeItem("virusToken");
     return signOut(auth);
   };
 

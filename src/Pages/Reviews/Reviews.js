@@ -8,7 +8,7 @@ import useTitle from "../../hooks/useTitle";
 import { toast } from "react-toastify";
 
 const Reviews = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
   const [review, setReview] = useState({});
   const [givenStar, setGivenStar] = useState(0);
@@ -34,11 +34,21 @@ const Reviews = () => {
 
   useEffect(() => {
     fetch(
-      `https://funta-kitchen-server.vercel.app/reviews?email=${user?.email}`
+      `https://funta-kitchen-server.vercel.app/my-reviews?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("virusToken")}`,
+        },
+      }
     )
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
       .then((data) => setReviews(data));
-  }, [user?.email]);
+  }, [user.email, logOut]);
 
   const handleDelete = (id) => {
     const proceed = window.confirm(
