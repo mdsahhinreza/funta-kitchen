@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
+import { Image, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import cover from "../../../assets/Home/cooking.gif";
@@ -8,6 +8,7 @@ import ServiceCart from "../../Shared/ServiceCart";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { Autoplay, Navigation, Pagination } from "swiper";
+import { FaStar } from "react-icons/fa";
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -74,30 +75,60 @@ const Home = () => {
             My Valuable Customars Review
           </h4>
           <hr />
-          <div className="my-5">
-            <Swiper
-              modules={[Navigation, Autoplay, Pagination]}
-              autoplay={true}
-              spaceBetween={50}
-              slidesPerView={3}
-              Autoplay={true}
-              onSlideChange={() => console.log("slide change")}
-              breakpoints={{
-                576: {
-                  // width: 576,
-                  slidesPerView: 1,
-                },
-                768: {
-                  // width: 768,
-                  slidesPerView: 3,
-                },
-              }}
-              // slidesPerView={2}
-            >
-              {reviews.map((review) => (
-                <SwiperSlide>{review.reviewText}</SwiperSlide>
-              ))}
-            </Swiper>
+          <div className="row">
+            <div className="my-5">
+              <Swiper
+                modules={[Navigation, Autoplay, Pagination]}
+                autoplay={true}
+                spaceBetween={50}
+                slidesPerView={3}
+                autoPlay={true}
+                // onSlideChange={() => console.log("slide change")}
+                breakpoints={{
+                  576: {
+                    // width: 576,
+                    slidesPerView: 1,
+                  },
+                  768: {
+                    // width: 768,
+                    slidesPerView: 3,
+                  },
+                }}
+                // slidesPerView={2}
+              >
+                {reviews.map((review) => (
+                  <SwiperSlide className="col-4" key={review._id}>
+                    <div>
+                      <div className="bg-primary bg-opacity-25 rounded p-3">
+                        <div className="d-flex align-items-center justify-content-between">
+                          <div className="d-flex">
+                            <Image
+                              height={50}
+                              width={50}
+                              roundedCircle
+                              src={review.customarPhoto}
+                            ></Image>
+                            <div className="ps-2">
+                              <p className="fw-bold mb-0">{review.customar}</p>
+                              <small>{review.customarEmail}</small>
+                            </div>
+                          </div>
+                          <div>
+                            <p>
+                              {review.star}
+                              <FaStar className="mb-1 ms-1"></FaStar>
+                            </p>
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-left pt-3">{review.reviewText}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
         </div>
       </div>
