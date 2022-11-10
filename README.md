@@ -2,7 +2,7 @@
 
 ## Project Link
 
-Open Live Link : [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open Live Link : [https://funta-kitchen.web.app/](https://funta-kitchen.web.app/) to view it in your browser.
 
 ## Project Description
 
