@@ -5,6 +5,7 @@ import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
+import { toast } from "react-toastify";
 
 const Reviews = () => {
   const { user } = useContext(AuthContext);
@@ -51,6 +52,7 @@ const Reviews = () => {
           if (data.deletedCount > 0) {
             const leftReviews = reviews.filter((review) => review._id !== id);
             setReviews(leftReviews);
+            toast("Review Deleted Succssfull");
           }
           console.log(data);
         });
@@ -79,7 +81,7 @@ const Reviews = () => {
       .then((data) => {
         console.log(data);
         if (data.modifiedCount > 0) {
-          alert("User Update Successfull!");
+          toast("Review Update Successfull!");
           handleClose();
           naigate("/my-reviews");
         }

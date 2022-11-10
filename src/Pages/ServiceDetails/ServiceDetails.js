@@ -6,6 +6,7 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
 import { FaStar } from "react-icons/fa";
 import UserReview from "./UserReview";
+import { toast } from "react-toastify";
 
 const ServiceDetails = () => {
   const { user } = useContext(AuthContext);
@@ -41,7 +42,7 @@ const ServiceDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          alert("Review Added Successfull");
+          toast("Review Added Successfull");
           form.reset();
           setGivenStar(0);
           console.log(data);

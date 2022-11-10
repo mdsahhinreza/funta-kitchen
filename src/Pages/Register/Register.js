@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import registerImg from "../../assets/Register/register.gif";
 import successImg from "../../assets/Shared/success.gif";
 
@@ -31,7 +32,9 @@ const Register = () => {
           .then(() => console.log("User Name and Photo Updated"))
           .catch((err) => console.error(err));
         logOut().then(() => console.log("SignOut Success"));
-        login(email, password).then(() => console.log("SignIn Success"));
+        login(email, password).then(() =>
+          toast("Registration and SignIn Success")
+        );
         form.reset();
         setSignUpSuccess(true);
 

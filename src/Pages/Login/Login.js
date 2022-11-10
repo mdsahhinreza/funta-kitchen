@@ -6,6 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
 import useTitle from "../../hooks/useTitle";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [sinUpSuccess, setSignUpSuccess] = useState(false);
@@ -23,7 +24,7 @@ const Login = () => {
     const password = form.password.value;
     login(email, password)
       .then(() => {
-        console.log("SignIn Success");
+        toast("Login Successfull");
         setSignUpSuccess(true);
         navigate(from, { replace: true });
       })
@@ -32,7 +33,7 @@ const Login = () => {
 
   const handleGoogleSign = () => {
     googleLogIn().then(() => {
-      console.log("Login Success");
+      toast("Login Successfull");
       setSignUpSuccess(true);
       navigate(from, { replace: true });
     });

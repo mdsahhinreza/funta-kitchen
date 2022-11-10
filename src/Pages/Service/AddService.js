@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
 import useTitle from "../../hooks/useTitle";
 
 const AddService = () => {
@@ -35,7 +36,8 @@ const AddService = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          console.log("Service Added Success");
+          toast("Service Added Success");
+          form.reset();
         }
       });
   };
