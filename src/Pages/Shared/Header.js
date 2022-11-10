@@ -26,6 +26,9 @@ const Header = () => {
             <Nav.Link as={Link} to="/services">
               Services
             </Nav.Link>
+            <Nav.Link as={Link} to="/blog">
+              Blog
+            </Nav.Link>
             {user ? (
               <>
                 <Nav.Link as={Link} to="/add-service">
@@ -43,7 +46,7 @@ const Header = () => {
               </Nav.Link>
             )}
 
-            <Nav.Link as={Link} to="/login">
+            <Nav.Link as={Link}>
               {user ? (
                 <div className="d-flex align-items-center">
                   <img
