@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import cover from "../../../assets/Home/cooking.gif";
 import ServiceCart from "../../Shared/ServiceCart";
 const Home = () => {
@@ -36,6 +37,11 @@ const Home = () => {
           {items.map((item) => (
             <ServiceCart key={item._id} item={item}></ServiceCart>
           ))}
+        </div>
+        <div className="text-center my-4">
+          <Link className="btn btn-primary px-5" to={"/services"}>
+            See All{" "}
+          </Link>
         </div>
       </div>
     </div>

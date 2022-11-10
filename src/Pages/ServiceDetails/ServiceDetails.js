@@ -58,18 +58,6 @@ const ServiceDetails = () => {
       .then((data) => setReviews(data));
   }, [_id]);
 
-  // console.log(timestamp);
-  // console.log(
-  //   new Intl.DateTimeFormat("en-US", {
-  //     year: "numeric",
-  //     month: "2-digit",
-  //     day: "2-digit",
-  //     hour: "2-digit",
-  //     minute: "2-digit",
-  //     second: "2-digit",
-  //   }).format(timestamp)
-  // );
-
   return (
     <div className="mb-5 container">
       <div className="mt-5 pt-5  row mx-auto">
