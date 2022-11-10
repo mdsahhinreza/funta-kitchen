@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
 import cover from "../../../assets/Home/cooking.gif";
 import useTitle from "../../../hooks/useTitle";
 import ServiceCart from "../../Shared/ServiceCart";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
+import { Autoplay, Navigation, Pagination } from "swiper";
+
 const Home = () => {
   const [items, setItems] = useState([]);
+  const [reviews, setReviews] = useState([]);
   useTitle("Home");
   useEffect(() => {
     fetch("http://localhost:5000/services?limit=3")
       .then((res) => res.json())
       .then((data) => setItems(data));
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/reviews")
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
   }, []);
   return (
     <div>
@@ -54,6 +66,39 @@ const Home = () => {
           <Link className="btn btn-primary px-5" to={"/services"}>
             See All{" "}
           </Link>
+        </div>
+      </div>
+      <div className="container mt-5">
+        <div className="col-md-12">
+          <h4 className="text-center text-uppercase">
+            My Valuable Customars Review
+          </h4>
+          <hr />
+          <div className="my-5">
+            <Swiper
+              modules={[Navigation, Autoplay, Pagination]}
+              autoplay={true}
+              spaceBetween={50}
+              slidesPerView={3}
+              Autoplay={true}
+              onSlideChange={() => console.log("slide change")}
+              breakpoints={{
+                576: {
+                  // width: 576,
+                  slidesPerView: 1,
+                },
+                768: {
+                  // width: 768,
+                  slidesPerView: 3,
+                },
+              }}
+              // slidesPerView={2}
+            >
+              {reviews.map((review) => (
+                <SwiperSlide>{review.reviewText}</SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </div>
     </div>

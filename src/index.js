@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-photo-view/dist/react-photo-view.css";
 import "react-toastify/dist/ReactToastify.css";
+import "swiper/css";
 import AuthProvider from "./contex/AuthProvider/AuthProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
