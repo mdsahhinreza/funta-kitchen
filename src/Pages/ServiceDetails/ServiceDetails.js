@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import { Link, useLoaderData } from "react-router-dom";
 import { BiDish, BiPaperPlane } from "react-icons/bi";
 import { PhotoProvider, PhotoView } from "react-photo-view";
@@ -157,6 +157,14 @@ const ServiceDetails = () => {
         </div>
       </div>
       <div className="row mt-5">
+        {reviews.length <= 0 ? (
+          <div className="text-center my-5">
+            <Spinner animation="border" variant="primary" />{" "}
+            <h2>Loading Reviews</h2>
+          </div>
+        ) : (
+          ""
+        )}
         {reviews.map((review) => (
           <UserReview key={review._id} review={review}></UserReview>
         ))}

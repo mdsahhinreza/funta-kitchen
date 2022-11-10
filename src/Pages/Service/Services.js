@@ -1,18 +1,36 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 import useTitle from "../../hooks/useTitle";
 import ServiceCart from "../Shared/ServiceCart";
 
 const Services = () => {
-  const items = useLoaderData();
+  const [services, setServices] = useState([]);
+  const [loader, setLoader] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/services")
+      .then((res) => res.json())
+      .then((data) => {
+        setServices(data);
+        setLoader(false);
+      });
+  }, []);
+
   useTitle("Services");
   return (
-    <div className="container">
+    <div className="container position-relative">
+      {loader ? (
+        <div className="text-center position-absolute  w-100 top-50 ">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      ) : (
+        ""
+      )}
       <h2 className="text-start text-uppercase fw-bolder mt-3 mb-5">
         Our Best Product's <hr />
       </h2>
       <div className="row">
-        {items.map((item) => (
+        {services.map((item) => (
           <ServiceCart key={item._id} item={item}></ServiceCart>
         ))}
       </div>

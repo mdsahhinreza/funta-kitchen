@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import cover from "../../../assets/Home/cooking.gif";
 import useTitle from "../../../hooks/useTitle";
@@ -36,6 +37,15 @@ const Home = () => {
           My Kitchen's Special <hr />
         </h2>
         <div className="row">
+          {items.length <= 0 ? (
+            <div className="text-center my-5">
+              <Spinner animation="border" variant="primary" />{" "}
+              <h2>Loading Products</h2>
+            </div>
+          ) : (
+            ""
+          )}
+
           {items.map((item) => (
             <ServiceCart key={item._id} item={item}></ServiceCart>
           ))}

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import loginImg from "../../assets/Login/login.gif";
 import successImg from "../../assets/Shared/success.gif";
 import { FcGoogle } from "react-icons/fc";
@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [sinUpSuccess, setSignUpSuccess] = useState(false);
+  const [loader, setLoader] = useState(null);
+  const [error, setError] = useState(null);
   const { login, googleLogIn } = useContext(AuthContext);
   useTitle("Login");
   const location = useLocation();
@@ -19,28 +21,47 @@ const Login = () => {
 
   const loginHandler = (event) => {
     event.preventDefault();
+    setLoader(true);
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     login(email, password)
       .then(() => {
         toast("Login Successfull");
+        setLoader(false);
         setSignUpSuccess(true);
         navigate(from, { replace: true });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setError(err.message);
+        setLoader(false);
+      });
   };
 
   const handleGoogleSign = () => {
+    setLoader(true);
     googleLogIn().then(() => {
       toast("Login Successfull");
+      setLoader(false);
       setSignUpSuccess(true);
       navigate(from, { replace: true });
     });
   };
 
   return (
-    <div className="container p-5" style={{ minHeight: "88vh" }}>
+    <div
+      className="container p-5 position-relative"
+      style={{ minHeight: "88vh" }}
+    >
+      {loader ? (
+        <div className="text-center position-absolute  w-100 top-50 ">
+          <span className="bg-warning p-5 rounded bg-opacity-50">
+            <Spinner animation="border" variant="primary" />
+          </span>
+        </div>
+      ) : (
+        ""
+      )}
       <h2 className="text-center ff-poppins">Login Form</h2> <hr />
       <div className="row w-75 mx-auto">
         <div className="col-6 border-end">
@@ -78,6 +99,13 @@ const Login = () => {
             ) : (
               ""
             )} */}
+            {error ? (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            ) : (
+              ""
+            )}
             <Button variant="info" type="submit">
               Sign In
             </Button>

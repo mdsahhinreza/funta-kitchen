@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import registerImg from "../../assets/Register/register.gif";
@@ -11,12 +11,14 @@ import useTitle from "../../hooks/useTitle";
 const Register = () => {
   const [sinUpSuccess, setSignUpSuccess] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [loader, setLoader] = useState(null);
   const { createUser, updateUser, login, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   useTitle("Registration");
 
   const handleRegister = (event) => {
     event.preventDefault();
+    setLoader(true);
     const form = event.target;
     const name = form.name.value;
     const photo = form.photo.value;
@@ -32,9 +34,10 @@ const Register = () => {
           .then(() => console.log("User Name and Photo Updated"))
           .catch((err) => console.error(err));
         logOut().then(() => console.log("SignOut Success"));
-        login(email, password).then(() =>
-          toast("Registration and SignIn Success")
-        );
+        login(email, password).then(() => {
+          toast("Registration and SignIn Success");
+          setLoader(false);
+        });
         form.reset();
         setSignUpSuccess(true);
 
@@ -49,7 +52,20 @@ const Register = () => {
     setAcceptTerms(event.target.checked);
   };
   return (
-    <div className="container p-5" style={{ minHeight: "88vh" }}>
+    <div
+      className="container p-5 position-relative"
+      style={{ minHeight: "88vh" }}
+    >
+      {loader ? (
+        <div className="text-center position-absolute  w-100 top-50 ">
+          <span className="bg-warning p-5 rounded bg-opacity-50">
+            <Spinner animation="border" variant="primary" />
+          </span>
+        </div>
+      ) : (
+        ""
+      )}
+
       <div className="row w-75 mx-auto">
         <h2 className="text-center ff-poppins">Registration Form</h2> <hr />
         <div className="col-6 border-end">
