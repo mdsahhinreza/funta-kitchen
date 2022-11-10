@@ -3,6 +3,7 @@ import Main from "../layout/Main";
 import Blog from "../Pages/Blog/Blog";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
+import NotFound from "../Pages/notFound/NotFound";
 import Register from "../Pages/Register/Register";
 import Reviews from "../Pages/Reviews/Reviews";
 import AddService from "../Pages/Service/AddService";
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog></Blog>,
+      },
+      {
+        path: "*",
+        element: <NotFound></NotFound>,
       },
     ],
   },
