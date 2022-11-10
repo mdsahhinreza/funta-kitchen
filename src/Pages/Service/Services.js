@@ -1,9 +1,11 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 import ServiceCart from "../Shared/ServiceCart";
 
 const Services = () => {
   const items = useLoaderData();
+  useTitle("Services");
   return (
     <div className="container">
       <h2 className="text-start text-uppercase fw-bolder mt-3 mb-5">

@@ -1,9 +1,11 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
+import useTitle from "../../hooks/useTitle";
 
 const AddService = () => {
   const timestamp = Date.now();
+  useTitle("Add Service");
 
   const handleSubmit = (event) => {
     event.preventDefault();

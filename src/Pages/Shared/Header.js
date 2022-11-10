@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
+import logo from "../../assets/Shared/logo.png";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -11,7 +12,7 @@ const Header = () => {
     <Navbar className="bg-funta navbar-dark" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          Funta-Kitchen
+          <img width={"45px"} src={logo} alt="" /> Funta-Kitchen
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import cover from "../../../assets/Home/cooking.gif";
+import useTitle from "../../../hooks/useTitle";
 import ServiceCart from "../../Shared/ServiceCart";
 const Home = () => {
   const [items, setItems] = useState([]);
+  useTitle("Home");
   useEffect(() => {
     fetch("http://localhost:5000/services?limit=3")
       .then((res) => res.json())

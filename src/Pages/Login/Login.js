@@ -5,11 +5,12 @@ import successImg from "../../assets/Shared/success.gif";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
+import useTitle from "../../hooks/useTitle";
 
 const Login = () => {
   const [sinUpSuccess, setSignUpSuccess] = useState(false);
   const { login, googleLogIn } = useContext(AuthContext);
-
+  useTitle("Login");
   const location = useLocation();
   const navigate = useNavigate();
 

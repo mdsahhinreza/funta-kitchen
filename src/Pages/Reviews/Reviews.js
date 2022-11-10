@@ -4,6 +4,7 @@ import { FaStar, FaTrash, FaRegEdit } from "react-icons/fa";
 import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 const Reviews = () => {
   const { user } = useContext(AuthContext);
@@ -11,7 +12,7 @@ const Reviews = () => {
   const [review, setReview] = useState({});
   const [givenStar, setGivenStar] = useState(0);
   const naigate = useNavigate();
-
+  useTitle("My Review");
   const [show, setShow] = useState(false);
 
   const handleClose = () => {

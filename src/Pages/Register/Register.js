@@ -5,12 +5,14 @@ import registerImg from "../../assets/Register/register.gif";
 import successImg from "../../assets/Shared/success.gif";
 
 import { AuthContext } from "../../contex/AuthProvider/AuthProvider";
+import useTitle from "../../hooks/useTitle";
 
 const Register = () => {
   const [sinUpSuccess, setSignUpSuccess] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const { createUser, updateUser, login, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
+  useTitle("Registration");
 
   const handleRegister = (event) => {
     event.preventDefault();
