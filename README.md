@@ -9,6 +9,14 @@ Open Live Link : [https://funta-kitchen.web.app/](https://funta-kitchen.web.app/
 This project was created for Programming -Hero Assignment 11.
 In this project, we are trying to implement a cloud kitchen service sell online where you can add a service add review and delete your given review and edit your review.
 
+## Project Feature
+
+    * Review Services
+    * Add Services
+    * Registration
+    * Login
+    * Blog
+
 ### `npm Packages`
 
     1. "react-bootstrap": "^2.6.0",
