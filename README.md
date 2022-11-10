@@ -37,6 +37,7 @@ In this project, we are trying to implement a cloud kitchen service sell online 
     1. Email & Password
     2. Google Sign
 
-#`Signature`
-Developer Name : Md Sahhin Reza
-Email : mdsahhinreza@gmail.com
+# `Signature`
+
+** Developer Name : Md Sahhin Reza
+** Email : mdsahhinreza@gmail.com

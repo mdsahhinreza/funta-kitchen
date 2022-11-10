@@ -9,19 +9,19 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { Autoplay, Navigation, Pagination } from "swiper";
 import { FaStar } from "react-icons/fa";
-
+import chef from "../../../assets/Shared/chef.jpg";
 const Home = () => {
   const [items, setItems] = useState([]);
   const [reviews, setReviews] = useState([]);
   useTitle("Home");
   useEffect(() => {
-    fetch("http://localhost:5000/services?limit=3")
+    fetch("https://funta-kitchen-server.vercel.app/services?limit=3")
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/reviews")
+    fetch("https://funta-kitchen-server.vercel.app/reviews")
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);
@@ -36,9 +36,11 @@ const Home = () => {
             <h1 className="display-4 fw-bolder ff-poppins">
               <span className="text-info">Special</span> Foods.
             </h1>
-            <button className="btn btn-primary text-uppercase rounded-0 fw-bolder mt-4 btn-lg">
-              Explore Now
-            </button>
+            <Link to={"/services"}>
+              <button className="btn btn-primary text-uppercase rounded-0 fw-bolder mt-4 btn-lg">
+                Explore Now
+              </button>
+            </Link>
           </div>
           <div className="col-5 text-end">
             <img height="400" src={cover} alt="" />
@@ -67,6 +69,39 @@ const Home = () => {
           <Link className="btn btn-primary px-5" to={"/services"}>
             See All{" "}
           </Link>
+        </div>
+      </div>
+      <div className="container">
+        <div className="row my-5">
+          <div className="col-md-4 ">
+            <img
+              src={chef}
+              width={"80%"}
+              className="img-fluid rounded"
+              alt=""
+            />
+          </div>
+          <div className="col-md-8 text-start">
+            <h2 className="text-uppercase fw-bolder">Funta Kitchen's Chef</h2>
+            <p>
+              Beginning his culinary adventure earlier than most, Andrew entered
+              the kitchen at just 13 years of age. Keen to learn with a strong
+              appetite for gaining the skills needed in commercial kitchens, he
+              began a school-based apprenticeship that lasted three years.{" "}
+              <br />
+              <br />
+              After a one-way trip to Melbourne, Andrew began managing his own
+              kitchen team and learning the ropes of busy Melbourne hospitality.
+              Exploring popular inner-city food markets increased Andrew’s
+              resourcefulness and creativity, throwing together fresh local
+              produce in innovative ways. Upon eventually returning to Noosa, he
+              embraced a new-found inspiration to bring families together in an
+              environment that caters to all. <br /> <br />
+              It is with this enthusiasm that Andrew leads the talented kitchen
+              team at View by Matt Golinski, crafting a menu of modern design
+              and a touch of the old-fashioned to please any palate. <br />
+            </p>
+          </div>
         </div>
       </div>
       <div className="container mt-5">

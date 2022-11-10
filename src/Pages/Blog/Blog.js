@@ -49,42 +49,41 @@ const Blog = () => {
             Here are some of the key differences between MySQL and NoSQL.
             <br></br>
             <br></br>
-            <ol>
-              <li>
-                First off, MySQL is a relational database that is based on a
-                tabular design. NoSQL is non-relational and has a document-based
-                design.
-              </li>
-              <li>
-                A MySQL database is currently more popular in the market than
-                NoSQL because the latter is still fairly new. That means, at
-                present, MySQL encompasses a large community while NoSQL has a
-                comparatively small community.
-              </li>
-              <li>
-                While MySQL is not easily scalable due to rigid schema
-                restrictions, NoSQL can easily be scaled because of its dynamic
-                schema nature.
-              </li>
-              <li>
-                Another key difference is MySQL requires a detailed database
-                model before the creation of the database while NoSQL requires
-                no detailed modeling.
-              </li>
-              <li>
-                Also, unlike MySQL, which is a type of relational database,
-                NoSQL is more design-based, with examples like CouchDB and
-                MongoDB. Furthermore, NoSQL is much more flexible than MySQL.
-              </li>
-              <li>
-                One of the good things about MySQL database management is that
-                it is available with a broad range of reporting tools that can
-                help the validity of an application. On the other hand, NoSQL
-                databases do not have reporting tools for performance testing
-                and analysis.
-              </li>
-            </ol>
           </p>
+          <ol>
+            <li>
+              First off, MySQL is a relational database that is based on a
+              tabular design. NoSQL is non-relational and has a document-based
+              design.
+            </li>
+            <li>
+              A MySQL database is currently more popular in the market than
+              NoSQL because the latter is still fairly new. That means, at
+              present, MySQL encompasses a large community while NoSQL has a
+              comparatively small community.
+            </li>
+            <li>
+              While MySQL is not easily scalable due to rigid schema
+              restrictions, NoSQL can easily be scaled because of its dynamic
+              schema nature.
+            </li>
+            <li>
+              Another key difference is MySQL requires a detailed database model
+              before the creation of the database while NoSQL requires no
+              detailed modeling.
+            </li>
+            <li>
+              Also, unlike MySQL, which is a type of relational database, NoSQL
+              is more design-based, with examples like CouchDB and MongoDB.
+              Furthermore, NoSQL is much more flexible than MySQL.
+            </li>
+            <li>
+              One of the good things about MySQL database management is that it
+              is available with a broad range of reporting tools that can help
+              the validity of an application. On the other hand, NoSQL databases
+              do not have reporting tools for performance testing and analysis.
+            </li>
+          </ol>
         </div>
         {/* blog 2 */}
         <div className="bg-light rounded text-justify p-5 border border-info border-opacity-50 mt-3">

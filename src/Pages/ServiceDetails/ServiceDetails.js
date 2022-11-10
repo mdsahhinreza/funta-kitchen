@@ -11,12 +11,14 @@ import { toast } from "react-toastify";
 const ServiceDetails = () => {
   const { user } = useContext(AuthContext);
   const [givenStar, setGivenStar] = useState(0);
+  const [loader, setLoader] = useState(true);
   const [reviews, setReviews] = useState([]);
   const service = useLoaderData();
   const { _id, name, price, details, thumbnail, img } = service;
 
   const timestamp = Date.now(); // This would be the timestamp you want to format
 
+  //Post
   const handlePostReview = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -32,7 +34,7 @@ const ServiceDetails = () => {
       reviewTime: timestamp,
     };
 
-    fetch("http://localhost:5000/addreview", {
+    fetch("https://funta-kitchen-server.vercel.app/addreview", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -54,9 +56,12 @@ const ServiceDetails = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?productId=${_id}`)
+    fetch(`https://funta-kitchen-server.vercel.app/reviews?productId=${_id}`)
       .then((res) => res.json())
-      .then((data) => setReviews(data));
+      .then((data) => {
+        setReviews(data);
+        setLoader(false);
+      });
   }, [_id]);
 
   return (
@@ -98,51 +103,52 @@ const ServiceDetails = () => {
                   name="review"
                   as="textarea"
                   placeholder="Write your review about this service"
+                  required
                 />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Your Rating {givenStar}</Form.Label>
                 <div>
-                  <button
+                  <span
                     onMouseEnter={() => setGivenStar(1)}
                     className={`btn btn-lg p-0 m-0 ${
                       givenStar >= 1 ? "text-warning" : ""
                     }`}
                   >
                     <FaStar></FaStar>
-                  </button>
-                  <button
+                  </span>
+                  <span
                     onMouseEnter={() => setGivenStar(2)}
                     className={`btn btn-lg p-0 m-0 ${
                       givenStar >= 2 ? "text-warning" : ""
                     }`}
                   >
                     <FaStar></FaStar>
-                  </button>
-                  <button
+                  </span>
+                  <span
                     onMouseEnter={() => setGivenStar(3)}
                     className={`btn btn-lg p-0 m-0 ${
                       givenStar >= 3 ? "text-warning" : ""
                     }`}
                   >
                     <FaStar></FaStar>
-                  </button>
-                  <button
+                  </span>
+                  <span
                     onMouseEnter={() => setGivenStar(4)}
                     className={`btn btn-lg p-0 m-0 ${
                       givenStar >= 4 ? "text-warning" : ""
                     }`}
                   >
                     <FaStar></FaStar>
-                  </button>
-                  <button
+                  </span>
+                  <span
                     onMouseEnter={() => setGivenStar(5)}
                     className={`btn btn-lg p-0 m-0 ${
                       givenStar >= 5 ? "text-warning" : ""
                     }`}
                   >
                     <FaStar></FaStar>
-                  </button>
+                  </span>
                 </div>
               </Form.Group>
               <Button variant="info" type="submit">
@@ -157,7 +163,7 @@ const ServiceDetails = () => {
         </div>
       </div>
       <div className="row mt-5">
-        {reviews.length <= 0 ? (
+        {loader ? (
           <div className="text-center my-5">
             <Spinner animation="border" variant="primary" />{" "}
             <h2>Loading Reviews</h2>

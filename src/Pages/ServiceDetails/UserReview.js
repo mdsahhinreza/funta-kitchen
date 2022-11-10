@@ -2,7 +2,7 @@ import React from "react";
 import { FaStar } from "react-icons/fa";
 
 const UserReview = ({ review }) => {
-  const { customar, customarPhoto, reviewText, star, timestamp } = review;
+  const { customar, customarPhoto, reviewText, star, reviewTime } = review;
 
   const time = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
@@ -11,7 +11,7 @@ const UserReview = ({ review }) => {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-  }).format(timestamp);
+  }).format(reviewTime);
 
   return (
     <div className="col-md-8 my-2">

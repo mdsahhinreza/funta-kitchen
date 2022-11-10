@@ -12,7 +12,7 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [review, setReview] = useState({});
   const [givenStar, setGivenStar] = useState(0);
-  const naigate = useNavigate();
+  const navigate = useNavigate();
   useTitle("My Review");
   const [show, setShow] = useState(false);
 
@@ -24,7 +24,7 @@ const Reviews = () => {
 
   const handleShow = (id) => {
     setShow(true);
-    fetch(`http://localhost:5000/reviews/${id}`)
+    fetch(`https://funta-kitchen-server.vercel.app/reviews/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setReview(data);
@@ -33,7 +33,9 @@ const Reviews = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+    fetch(
+      `https://funta-kitchen-server.vercel.app/reviews?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, [user?.email]);
@@ -44,7 +46,7 @@ const Reviews = () => {
     );
     if (proceed) {
       console.log("deleted");
-      fetch(`http://localhost:5000/reviews/${id}`, {
+      fetch(`https://funta-kitchen-server.vercel.app/reviews/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -70,7 +72,7 @@ const Reviews = () => {
       star: givenStar,
     };
 
-    fetch(`http://localhost:5000/reviews/${id}`, {
+    fetch(`https://funta-kitchen-server.vercel.app/reviews/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -83,7 +85,7 @@ const Reviews = () => {
         if (data.modifiedCount > 0) {
           toast("Review Update Successfull!");
           handleClose();
-          naigate("/my-reviews");
+          navigate("/my-reviews");
         }
       });
   };
@@ -167,46 +169,46 @@ const Reviews = () => {
             <Form.Group className="mb-3">
               <Form.Label>Your Rating {givenStar}</Form.Label>
               <div>
-                <button
+                <span
                   onMouseEnter={() => setGivenStar(1)}
                   className={`btn btn-lg p-0 m-0 ${
                     givenStar >= 1 ? "text-warning" : ""
                   }`}
                 >
                   <FaStar></FaStar>
-                </button>
-                <button
+                </span>
+                <span
                   onMouseEnter={() => setGivenStar(2)}
                   className={`btn btn-lg p-0 m-0 ${
                     givenStar >= 2 ? "text-warning" : ""
                   }`}
                 >
                   <FaStar></FaStar>
-                </button>
-                <button
+                </span>
+                <span
                   onMouseEnter={() => setGivenStar(3)}
                   className={`btn btn-lg p-0 m-0 ${
                     givenStar >= 3 ? "text-warning" : ""
                   }`}
                 >
                   <FaStar></FaStar>
-                </button>
-                <button
+                </span>
+                <span
                   onMouseEnter={() => setGivenStar(4)}
                   className={`btn btn-lg p-0 m-0 ${
                     givenStar >= 4 ? "text-warning" : ""
                   }`}
                 >
                   <FaStar></FaStar>
-                </button>
-                <button
+                </span>
+                <span
                   onMouseEnter={() => setGivenStar(5)}
                   className={`btn btn-lg p-0 m-0 ${
                     givenStar >= 5 ? "text-warning" : ""
                   }`}
                 >
                   <FaStar></FaStar>
-                </button>
+                </span>
               </div>
             </Form.Group>
             <div>

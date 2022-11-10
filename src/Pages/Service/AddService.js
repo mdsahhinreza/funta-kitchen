@@ -26,7 +26,7 @@ const AddService = () => {
       timestamp: timestamp,
     };
 
-    fetch("http://localhost:5000/services", {
+    fetch("https://funta-kitchen-server.vercel.app/services", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -55,6 +55,7 @@ const AddService = () => {
                 name="name"
                 type="text"
                 placeholder="service title"
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -67,6 +68,7 @@ const AddService = () => {
                 name="thumbnail"
                 type="text"
                 placeholder="thumbnail image"
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -80,7 +82,12 @@ const AddService = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Price</Form.Label>
-              <Form.Control name="price" type="text" placeholder="price" />
+              <Form.Control
+                name="price"
+                type="text"
+                placeholder="price"
+                required
+              />
             </Form.Group>
 
             <Button variant="info" type="submit">
